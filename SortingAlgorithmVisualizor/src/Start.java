@@ -2,7 +2,6 @@ import javax.swing.JFrame;
 
 public class Start {
 	public static void main(String[] args) {
-		
 		int width = 500, height = 500, radius = 500;
 		
 		Sort sorter = new BubbleSort(width, height);
