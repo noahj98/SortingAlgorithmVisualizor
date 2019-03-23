@@ -14,13 +14,14 @@ public class Viewer extends JPanel implements ActionListener {
 	private Timer timer;
 	private Color curr_color;
 
-	public Viewer(Sort sorter, int width, int height) {
+	public Viewer(Sort sorter, int width, int height, int timing) {
+		if (timing < 1 || timing > 500) throw new RuntimeException("Timing must be between 1 and 100 inclusive");
 		this.sorter = sorter;
 		this.width = width;
 		this.height = height;
 		curr_color = Color.WHITE;
 		setup();
-		timer = new Timer(1, this);
+		timer = new Timer(timing, this);
 	}
 
 	public void start() {
