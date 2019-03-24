@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class CircularViewer extends JPanel implements ActionListener {
+public class CircularViewer extends JPanel implements Viewer, ActionListener {
 
 	private Sort sorter;
 	private int radius;
@@ -15,8 +15,8 @@ public class CircularViewer extends JPanel implements ActionListener {
 	private Color curr_color;
 
 	public CircularViewer(Sort sorter, int radius, int timing) {
-		if (radius < 5 || radius > 625) throw new RuntimeException("Radius must be > 5 and < 625 inclusive");
-		if (timing < 1 || timing > 500) throw new RuntimeException("Timing must be between 1 and 100 inclusive");
+		if (radius < 100 || radius > 500) throw new RuntimeException("Radius must be > 100 and < 500 (inclusive)");
+		if (timing < 1 || timing > 150) throw new RuntimeException("Timing must be between 1 and 150 (inclusive)");
 		this.sorter = sorter;
 		this.radius = radius;
 		curr_color = Color.WHITE;
@@ -50,22 +50,15 @@ public class CircularViewer extends JPanel implements ActionListener {
 				g.drawLine(0, 0, x2, y2);
 			}
 		} else {
-			int[] x_vals = new int[3];
-			int[] y_vals = new int[3];
-			x_vals[0] = 0;
-			y_vals[0] = 0;
-			x_vals[1] = (int) (arr[0] * Math.cos(-Math.PI / 2.0 + 2.0 * Math.PI * (1.0) / arr.length));
-			y_vals[1] = (int) (arr[0] * Math.sin(-Math.PI / 2.0 + 2.0 * Math.PI * (1.0) / arr.length));
-			
-			for (int i = 1; i < arr.length; i++) {
-				x_vals[2] = (int) (arr[i] * Math.cos(-Math.PI / 2.0 + 2.0 * Math.PI * (i + 1.0) / arr.length));
-				y_vals[2] = (int) (arr[i] * Math.sin(-Math.PI / 2.0 + 2.0 * Math.PI * (i + 1.0) / arr.length));
-				
-				g.fillPolygon(x_vals, y_vals, 3);
-				
-				x_vals[1] = x_vals[2];
-				y_vals[1] = y_vals[2];
+			int[] x_vals = new int[arr.length+1];
+			int[] y_vals = new int[arr.length+1];
+			x_vals[arr.length] = 0;
+			y_vals[arr.length] = 0;
+			for (int i = 0; i < arr.length; i++) {
+				x_vals[i] = (int) (arr[i] * Math.cos(-Math.PI / 2.0 + 2.0 * Math.PI * (i + 1.0) / arr.length));
+				y_vals[i] = (int) (arr[i] * Math.sin(-Math.PI / 2.0 + 2.0 * Math.PI * (i + 1.0) / arr.length));
 			}
+			g.fillPolygon(x_vals, y_vals, x_vals.length);
 		}
 	}
 

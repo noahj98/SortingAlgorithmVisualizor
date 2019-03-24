@@ -9,8 +9,8 @@ public class BubbleSort implements Sort {
 	boolean doFast;
 
 	public BubbleSort(int width, int height, boolean unique, boolean doFast) {
-		if (width < 10 || height < 10 || width > 1500 || height > 1500)
-			throw new IllegalArgumentException("width/height must be > 10 and < 1500 inclusive");
+		if (width < 100 || height < 100 || width > 1000 || height > 1000)
+			throw new IllegalArgumentException("width/height must be > 100 and < 1000 (inclusive)");
 
 		arr = Sort.makeRandomArray(width, height, unique);
 		curr_i = 0;
